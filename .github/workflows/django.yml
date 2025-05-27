@@ -51,4 +51,8 @@ jobs:
     
     - name: Run isort import order check
       run: |
-        uv run isort . --check --diff 
+        uv run isort . --check --diff
+    
+    - name: Run flake8 linter
+      run: |
+        uv run flake8 . 
