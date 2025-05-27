@@ -51,7 +51,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "coronavstech.urls"
+ROOT_URLCONF = "api.coronavstech.coronavstech.urls"
 
 TEMPLATES = [
     {
