@@ -60,5 +60,4 @@ jobs:
     - name: 'Dependency Review'
       if: github.event_name == 'pull_request'
       uses: actions/dependency-review-action@v4
-      with:
-        comment-summary-in-pr: always
+      
