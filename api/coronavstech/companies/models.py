@@ -1,6 +1,7 @@
 """
 Models for the Company model.
 """
+
 from django.db import models
 from django.utils.timezone import now
 
@@ -10,8 +11,6 @@ class Company(models.Model):
     A model representing a company.
     """
 
-    
-
     class CompanyStatus(models.TextChoices):
         """
         A class representing the status of a company.
@@ -20,6 +19,7 @@ class Company(models.Model):
         LAYOFF = "Layoff"
         HIRING_FREEZE = "Hiring Freeze"
         HIRING = "Hiring"
+
     name = models.CharField(max_length=30, unique=True)
     status = models.CharField(
         choices=CompanyStatus.choices, default=CompanyStatus.HIRING, max_length=30

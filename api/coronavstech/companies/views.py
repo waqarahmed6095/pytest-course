@@ -1,6 +1,7 @@
 """
 Views for the Company model.
 """
+
 from django.core.mail import send_mail
 from rest_framework import status, viewsets
 from rest_framework.decorators import api_view
@@ -16,6 +17,7 @@ class CompanyViewSet(viewsets.ModelViewSet):
     """
     A viewset for the Company model.
     """
+
     queryset = Company.objects.all().order_by("-last_update")
     serializer_class = CompanySerializer
     pagination_class = PageNumberPagination
