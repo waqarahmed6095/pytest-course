@@ -66,4 +66,7 @@ jobs:
     - name: Run Bandit security checks
       run: |
         uv run bandit -r api --skip B101,B105
+
+    - name: Build Docker Image
+      run: docker build -f DockerFile -t myapp .
       

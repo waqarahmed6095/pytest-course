@@ -1,0 +1,5 @@
+FROM python:3.11-slim
+WORKDIR /app
+COPY . .
+RUN pip install --no-cache-dir uv && uv sync --all-extras --dev
+CMD ["uv", "run", "python", "api/coronavstech/manage.py", "runserver"]
