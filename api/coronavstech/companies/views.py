@@ -1,12 +1,12 @@
-from rest_framework import viewsets
+from django.core.mail import send_mail
+from rest_framework import status, viewsets
+from rest_framework.decorators import api_view
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.request import Request
+from rest_framework.response import Response
+
 from api.coronavstech.companies.models import Company
 from api.coronavstech.companies.serializers import CompanySerializer
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
-from django.core.mail import send_mail
-from rest_framework.request import Request
 
 
 class CompanyViewSet(viewsets.ModelViewSet):

@@ -1,8 +1,9 @@
-from django.urls import reverse
 import json
 import os
+
 import django
 import pytest
+from django.urls import reverse
 
 os.environ.setdefault(
     "DJANGO_SETTINGS_MODULE", "api.coronavstech.coronavstech.settings"

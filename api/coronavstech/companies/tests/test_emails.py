@@ -1,6 +1,7 @@
-from django.core import mail
 import json
 from unittest.mock import patch
+
+from django.core import mail
 
 
 def test_send_email_should_succeed(mailoutbox, settings) -> None:
