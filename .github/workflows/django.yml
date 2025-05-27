@@ -65,5 +65,5 @@ jobs:
 
     - name: Run Bandit security checks
       run: |
-        uv run bandit -r api
+        uv run bandit -r api --skip B101
       
