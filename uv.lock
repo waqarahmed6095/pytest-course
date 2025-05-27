@@ -252,13 +252,21 @@ dependencies = [
     { name = "python-dotenv" },
 ]
 
+[package.optional-dependencies]
+dev = [
+    { name = "pylint" },
+    { name = "pylint-django" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "black", specifier = ">=25.1.0" },
     { name = "djangorestframework", specifier = ">=3.16.0" },
     { name = "isort", specifier = ">=6.0.1" },
     { name = "pylint", specifier = ">=3.3.7" },
+    { name = "pylint", marker = "extra == 'dev'" },
     { name = "pylint-django", specifier = ">=2.6.1" },
+    { name = "pylint-django", marker = "extra == 'dev'" },
     { name = "pytest", specifier = ">=8.3.5" },
     { name = "pytest-django", specifier = ">=4.11.1" },
     { name = "python-dotenv", specifier = ">=1.1.0" },
