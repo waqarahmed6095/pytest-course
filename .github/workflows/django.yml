@@ -39,10 +39,12 @@ jobs:
     
     - name: Run migrations
       run: |
+        cd api/coronavstech
         uv run python manage.py migrate
     
     - name: Run Django tests
       run: |
+        cd api/coronavstech
         uv run python manage.py test
     
     - name: Run black formatter check
