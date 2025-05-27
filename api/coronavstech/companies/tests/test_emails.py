@@ -3,7 +3,6 @@ import json
 from unittest.mock import patch
 
 
-
 def test_send_email_should_succeed(mailoutbox, settings) -> None:
 
     settings.EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
