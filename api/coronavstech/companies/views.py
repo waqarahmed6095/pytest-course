@@ -19,8 +19,8 @@ class CompanyViewSet(viewsets.ModelViewSet):
 def send_company_email(request: Request):
     """send email with request payload"""
     send_mail(
-        subject=request.data.get("subject", "My subject"),
-        message=request.data.get("message", "Here is the message."),
+        subject=request.data.get("subject"),
+        message=request.data.get("message"),
         from_email="waqarahmed695@gmail.com",
         recipient_list=["waqarahmed695@gmail.com"],
     )
