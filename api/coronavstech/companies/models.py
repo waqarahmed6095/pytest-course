@@ -6,12 +6,14 @@ class Company(models.Model):
     """
     A model representing a company.
     """
+
     name = models.CharField(max_length=30, unique=True)
 
     class CompanyStatus(models.TextChoices):
         """
         A class representing the status of a company.
         """
+
         LAYOFF = "Layoff"
         HIRING_FREEZE = "Hiring Freeze"
         HIRING = "Hiring"

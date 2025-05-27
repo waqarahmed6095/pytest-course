@@ -1,5 +1,6 @@
 import json
 from unittest.mock import patch
+
 from django.core import mail
 
 
