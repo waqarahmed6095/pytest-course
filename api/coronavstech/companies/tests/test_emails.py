@@ -1,11 +1,12 @@
 import json
 from unittest.mock import patch
-
 from django.core import mail
 
 
 def test_send_email_should_succeed(mailoutbox, settings) -> None:
-
+    """
+    Test that the email is sent successfully.
+    """
     settings.EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
     assert len(mailoutbox) == 0
     mail.send_mail(
@@ -22,6 +23,9 @@ def test_send_email_should_succeed(mailoutbox, settings) -> None:
 
 
 def test_send_email_without_arguments_should_send_empty_email(client) -> None:
+    """
+    Test that the email is sent successfully when no arguments are provided.
+    """
     with patch("api.coronavstech.companies.views.send_mail") as mock_send_mail:
         response = client.post(path="/send-email/", data={})
         response_content = json.loads(response.content)
@@ -37,6 +41,9 @@ def test_send_email_without_arguments_should_send_empty_email(client) -> None:
 
 
 def test_send_email_with_get_verb_should_fail(client) -> None:
+    """
+    Test that the email is not sent when the GET verb is used.
+    """
     response = client.get(path="/send-email/")
     assert response.status_code == 405
     response_content = json.loads(response.content)

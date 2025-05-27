@@ -17,7 +17,9 @@ class CompanyViewSet(viewsets.ModelViewSet):
 
 @api_view(http_method_names=["POST"])
 def send_company_email(request: Request):
-    """send email with request payload"""
+    """
+    Send email with request payload.
+    """
     send_mail(
         subject=request.data.get("subject"),
         message=request.data.get("message"),

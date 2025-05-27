@@ -18,12 +18,18 @@ companies_url = reverse("companies-list")
 
 
 def test_zero_companies_should_return_empty_list(client) -> None:
+    """
+    Test that the API returns an empty list when there are no companies.
+    """
     response = client.get(companies_url)
     assert response.status_code == 200
     assert json.loads(response.content) == []
 
 
 def test_one_company_should_return_one_company(client) -> None:
+    """
+    Test that the API returns a single company when there is one company.
+    """
     test_company = Company.objects.create(name="Amazon")
     response = client.get(companies_url)
     response_content = json.loads(response.content)[0]
@@ -35,12 +41,18 @@ def test_one_company_should_return_one_company(client) -> None:
 
 
 def test_create_company_without_args_should_fail(client) -> None:
+    """
+    Test that the API returns a 400 error when a company is created without arguments.
+    """
     response = client.post(companies_url)
     assert response.status_code == 400
     assert json.loads(response.content) == {"name": ["This field is required."]}
 
 
 def test_create_existing_company_should_fail(client) -> None:
+    """
+    Test that the API returns a 400 error when a company is created with the same name.
+    """
     Company.objects.create(name="Amazon")
     response = client.post(companies_url, data={"name": "Amazon"})
     assert response.status_code == 400
@@ -50,6 +62,9 @@ def test_create_existing_company_should_fail(client) -> None:
 
 
 def test_create_company_with_only_name_all_fields_should_be_default(client) -> None:
+    """
+    Test that the API returns a 201 error when a company is created with only a name.
+    """
     response = client.post(companies_url, data={"name": "test company name"})
     assert response.status_code == 201
     assert Company.objects.count() == 1
@@ -60,7 +75,9 @@ def test_create_company_with_only_name_all_fields_should_be_default(client) -> N
 
 
 def test_create_company_with_layoffs_status_should_succeed(client) -> None:
-
+    """
+    Test that the API returns a 201 error when a company is created with the layoffs status.
+    """
     response = client.post(
         companies_url, data={"name": "test company name", "status": "Layoff"}
     )
@@ -73,6 +90,9 @@ def test_create_company_with_layoffs_status_should_succeed(client) -> None:
 
 
 def test_create_company_with_wrong_status_should_fail(client) -> None:
+    """
+    Test that the API returns a 400 error when a company is created with a wrong status.
+    """
     response = client.post(
         companies_url,
         data={"name": "test company name", "status": "Wrong status"},

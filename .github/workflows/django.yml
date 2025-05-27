@@ -53,6 +53,7 @@ jobs:
       run: |
         uv run isort . --check --diff
     
-    - name: Run flake8 linter
+    - name: Run pylint linter
       run: |
-        uv run flake8 . 
+        uv run pylint api coronavstech
+    

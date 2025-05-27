@@ -13,5 +13,8 @@ from fibonacci.naive import fibonacci_naive
     ],
 )
 def test_fibonacci_naive(n: int, expected: int):
+    """
+    Test the fibonacci_naive function.
+    """
     res = fibonacci_naive(n=n)
     assert res == expected
