@@ -3,9 +3,13 @@ from django.core import mail
 from django.test import Client
 import json
 from unittest.mock import patch
+
+
 class EmailUnittest(TestCase):
-    def test_send_email_should_succeed(self)->None:
-        with self.settings(EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend"):
+    def test_send_email_should_succeed(self) -> None:
+        with self.settings(
+            EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend"
+        ):
             self.assertEqual(len(mail.outbox), 0)
             mail.send_mail(
                 subject="Test Email",
@@ -19,7 +23,7 @@ class EmailUnittest(TestCase):
             self.assertEqual(mail.outbox[0].from_email, "test@gmail.com")
             self.assertEqual(mail.outbox[0].to, ["test@gmail.com"])
 
-    def test_send_email_without_arguments_should_send_empty_email(self)->None:
+    def test_send_email_without_arguments_should_send_empty_email(self) -> None:
         client = Client()
         with patch("api.coronavstech.companies.views.send_mail") as mock_send_mail:
             response = client.post(path="/send-email/", data={})
@@ -34,7 +38,7 @@ class EmailUnittest(TestCase):
                 recipient_list=["waqarahmed695@gmail.com"],
             )
 
-    def test_send_email_with_get_verb_should_fail(self)->None:
+    def test_send_email_with_get_verb_should_fail(self) -> None:
         client = Client()
         response = client.get(path="/send-email/")
         self.assertEqual(response.status_code, 405)
