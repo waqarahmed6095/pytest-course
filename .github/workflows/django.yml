@@ -15,8 +15,8 @@ jobs:
         python-version: ["3.11"]
     
     env:
-      PYTHONPATH: ${{ github.workspace }}/api/coronavstech
-      DJANGO_SETTINGS_MODULE: coronavstech.settings
+      PYTHONPATH: ${{ github.workspace }}
+      DJANGO_SETTINGS_MODULE: api.coronavstech.coronavstech.settings
       DATABASE_URL: sqlite:///db.sqlite3
 
     steps:
