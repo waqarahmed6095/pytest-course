@@ -58,6 +58,6 @@ jobs:
         uv run pylint fibonacci api
     
     - name: 'Dependency Review'
-      uses: github/dependency-review-action@v3
+      uses: actions/dependency-review-action@v4
       with:
         comment-summary-in-pr: always
