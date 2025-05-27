@@ -55,5 +55,5 @@ jobs:
     
     - name: Run pylint linter
       run: |
-        uv run pylint api coronavstech
+        uv run pylint fibonacci api
     

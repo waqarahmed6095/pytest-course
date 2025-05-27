@@ -8,12 +8,11 @@ def fibonacci_naive(n: int) -> int:
     Returns:
         int: The nth Fibonacci number.
     """
-    if n <= 0:
+    if n == 0:
         return 0
-    elif n == 1:
+    if n == 1:
         return 1
-    else:
-        return fibonacci_naive(n - 1) + fibonacci_naive(n - 2)
+    return fibonacci_naive(n - 1) + fibonacci_naive(n - 2)
 
 
 print(fibonacci_naive(10))
