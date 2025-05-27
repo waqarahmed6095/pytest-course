@@ -2,9 +2,29 @@ from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 from api.coronavstech.companies.models import Company
 from api.coronavstech.companies.serializers import CompanySerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from django.core.mail import send_mail
+from rest_framework.request import Request
 
 
 class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all().order_by("-last_update")
     serializer_class = CompanySerializer
     pagination_class = PageNumberPagination
+
+
+@api_view(http_method_names=["POST"])
+def send_company_email(request: Request):
+    """send email with request payload"""
+    send_mail(
+        subject=request.data.get("subject", "My subject"),
+        message=request.data.get("message", "Here is the message."),
+        from_email="waqarahmed695@gmail.com",
+        recipient_list=["waqarahmed695@gmail.com"],
+    )
+
+    return Response(
+        {"status": "success", "info": "email sent successfully"}, status=200
+    )
