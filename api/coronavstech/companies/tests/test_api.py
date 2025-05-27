@@ -16,7 +16,6 @@ pytestmark = pytest.mark.django_db
 companies_url = reverse("companies-list")
 
 
-
 def test_zero_companies_should_return_empty_list(client) -> None:
     response = client.get(companies_url)
     assert response.status_code == 200
@@ -32,7 +31,6 @@ def test_one_company_should_return_one_company(client) -> None:
     assert response_content["status"] == test_company.status
     assert response_content["application_link"] == test_company.application_link
     assert response_content["notes"] == test_company.notes
-    
 
 
 def test_create_company_without_args_should_fail(client) -> None:
@@ -61,7 +59,7 @@ def test_create_company_with_only_name_all_fields_should_be_default(client) -> N
 
 
 def test_create_company_with_layoffs_status_should_succeed(client) -> None:
-    
+
     response = client.post(
         companies_url, data={"name": "test company name", "status": "Layoff"}
     )
