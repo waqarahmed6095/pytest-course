@@ -57,7 +57,9 @@ jobs:
       run: |
         uv run pylint fibonacci api
     
-    - name: 'Dependency Review'
-      
+    - name: Dependency Review
+      if: github.event_name == 'pull_request'
       uses: actions/dependency-review-action@v4
+      with:
+        comment-summary-in-pr: always
       
