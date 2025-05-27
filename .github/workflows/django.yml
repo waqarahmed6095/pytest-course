@@ -47,4 +47,8 @@ jobs:
     
     - name: Run black formatter check
       run: |
-        uv run black . --check 
+        uv run black . --check
+    
+    - name: Run isort import order check
+      run: |
+        uv run isort . --check --diff 
