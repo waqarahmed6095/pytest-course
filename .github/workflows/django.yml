@@ -62,4 +62,8 @@ jobs:
       uses: actions/dependency-review-action@v4
       with:
         comment-summary-in-pr: always
+
+    - name: Run Bandit security checks
+      run: |
+        uv run bandit -r api
       
