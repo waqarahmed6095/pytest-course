@@ -43,7 +43,7 @@ jobs:
     
     - name: Run pytest tests
       run: |
-        uv run pytest -v
+        uv run pytest -v -m "not skip_in_ci"
     
     - name: Run black formatter check
       run: |
@@ -55,7 +55,7 @@ jobs:
     
     - name: Run pylint linter
       run: |
-        uv run pylint fibonacci api -m "not skip_in_ci"
+        uv run pylint fibonacci api 
     
     - name: Dependency Review
       if: github.event_name == 'pull_request'
