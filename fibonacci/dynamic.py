@@ -6,11 +6,11 @@ def fibonacci_dynamic(n: int) -> int:
     return fib_list[n]
 
 
-def fibonacci_dynamic_V2(n: int) -> int:
+def fibonacci_dynamic_v2(n: int) -> int:
     fib_1 = 0
     fib_2 = 1
 
-    for i in range(1, n + 1):
+    for _ in range(1, n + 1):
         fib = fib_1 + fib_2
         fib_1 = fib_2
         fib_2 = fib
