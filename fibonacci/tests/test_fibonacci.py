@@ -2,10 +2,10 @@ from typing import Callable
 
 import pytest
 
+from conftest import time_tracker
 from fibonacci.cached import fibonacci_cached, fibonacci_lru_cache
 from fibonacci.dynamic import fibonacci_dynamic, fibonacci_dynamic_v2
 from fibonacci.naive import fibonacci_naive
-from conftest import time_tracker
 
 
 @pytest.mark.parametrize(
