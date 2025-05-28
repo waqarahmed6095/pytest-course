@@ -1,8 +1,19 @@
+from typing import Callable
+
 import pytest
 
+from fibonacci.cached import fibonacci_cached, fibonacci_lru_cache
 from fibonacci.naive import fibonacci_naive
 
 
+@pytest.mark.parametrize(
+    "fib_func",
+    [
+        fibonacci_naive,
+        fibonacci_cached,
+        fibonacci_lru_cache,
+    ],
+)
 @pytest.mark.parametrize(
     "n, expected",
     [
@@ -12,9 +23,9 @@ from fibonacci.naive import fibonacci_naive
         (20, 6765),
     ],
 )
-def test_fibonacci_naive(n: int, expected: int):
+def test_fibonacci(fib_func: Callable[[int], int], n: int, expected: int):
     """
-    Test the fibonacci_naive function.
+    Test the fibonacci function.
     """
-    res = fibonacci_naive(n=n)
+    res = fib_func(n=n)
     assert res == expected
