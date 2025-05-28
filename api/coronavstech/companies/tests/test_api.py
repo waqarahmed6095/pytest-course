@@ -26,18 +26,22 @@ def test_zero_companies_should_return_empty_list(client) -> None:
     assert json.loads(response.content) == []
 
 
-def test_one_company_should_return_one_company(client) -> None:
+@pytest.fixture
+def amazon() -> Company:
+    return Company.objects.create(name="Amazon")
+
+
+def test_one_company_should_return_one_company(client, amazon) -> None:
     """
     Test that the API returns a single company when there is one company.
     """
-    test_company = Company.objects.create(name="Amazon")
     response = client.get(companies_url)
     response_content = json.loads(response.content)[0]
     assert response.status_code == 200
-    assert response_content["name"] == test_company.name
-    assert response_content["status"] == test_company.status
-    assert response_content["application_link"] == test_company.application_link
-    assert response_content["notes"] == test_company.notes
+    assert response_content["name"] == amazon.name
+    assert response_content["status"] == amazon.status
+    assert response_content["application_link"] == amazon.application_link
+    assert response_content["notes"] == amazon.notes
 
 
 def test_create_company_without_args_should_fail(client) -> None:
@@ -100,3 +104,23 @@ def test_create_company_with_wrong_status_should_fail(client) -> None:
     assert response.status_code == 400
     assert "Wrong status" in str(response.content)
     assert "is not a valid choice" in str(response.content)
+
+
+@pytest.fixture
+def company(**kwargs) -> Company:
+    def _company_factory(**kwargs) -> Company:
+        company_name = kwargs.pop("name", "Test Company INC")
+        return Company.objects.create(name=company_name, **kwargs)
+
+    return _company_factory
+
+
+def test_multiple_companies_exists_should_succeed(client, company) -> None:
+    twitch = company(name="Twitch")
+    tiktok = company(name="Tiktok")
+    test_company = company(name="Test Company INC")
+    companies_names = [twitch.name, tiktok.name, test_company.name]
+    reponse_companies = client.get(companies_url).json()
+    assert len(companies_names) == len(reponse_companies)
+    response_company_names = set(map(lambda x: x["name"], reponse_companies))
+    assert response_company_names == set(companies_names)
