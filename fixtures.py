@@ -1,4 +1,5 @@
 from datetime import datetime
+
 import pytest
 
 
@@ -9,6 +10,3 @@ def time_tracker():
     tock = datetime.now()
     diff = tock - tick
     print(f"\n run time: {diff.total_seconds() } seconds")
-
-
-
