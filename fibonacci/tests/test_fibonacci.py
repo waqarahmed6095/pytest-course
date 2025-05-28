@@ -4,7 +4,7 @@ import pytest
 
 from fibonacci.cached import fibonacci_cached, fibonacci_lru_cache
 from fibonacci.naive import fibonacci_naive
-
+from fixtures import time_tracker
 
 @pytest.mark.parametrize(
     "fib_func",
@@ -23,7 +23,7 @@ from fibonacci.naive import fibonacci_naive
         (20, 6765),
     ],
 )
-def test_fibonacci(fib_func: Callable[[int], int], n: int, expected: int):
+def test_fibonacci(time_tracker, fib_func: Callable[[int], int], n: int, expected: int):
     """
     Test the fibonacci function.
     """
