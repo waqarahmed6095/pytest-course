@@ -1,7 +1,7 @@
 import json
 import os
-
 from typing import List
+
 import django
 import pytest
 from django.urls import reverse
