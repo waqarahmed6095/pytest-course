@@ -55,7 +55,7 @@ jobs:
     
     - name: Run pylint linter
       run: |
-        uv run pylint fibonacci api
+        uv run pylint fibonacci api -m "not skip_in_ci"
     
     - name: Dependency Review
       if: github.event_name == 'pull_request'

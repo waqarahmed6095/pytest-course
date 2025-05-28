@@ -1,10 +1,12 @@
 import json
 
+import pytest
 import requests
 
 TEST_ENV_COMPANIES_URL = "http://localhost:8000/companies/"
 
 
+@pytest.mark.skip_in_ci
 def test_zero_companies_django_agnostic() -> None:
     """
     Test that the API returns an empty list when there are no companies.
@@ -14,6 +16,7 @@ def test_zero_companies_django_agnostic() -> None:
     assert json.loads(response.content) == []
 
 
+@pytest.mark.skip_in_ci
 def test_create_company_with_layoffs_django_agnostic() -> None:
     """
     Test that the API returns a 201 error when a company is created with the layoffs status.
