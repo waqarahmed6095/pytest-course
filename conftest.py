@@ -3,8 +3,6 @@ from typing import Callable
 
 import pytest
 
-from api.coronavstech.companies.models import Company
-
 
 class PerformanceException(Exception):
     """
@@ -40,17 +38,3 @@ def track_performance(method: Callable, runtime_limit=timedelta(seconds=2)):
         return result
 
     return run_function_and_validate_runtime
-
-
-@pytest.fixture
-def amazon() -> Company:
-    return Company.objects.create(name="Amazon")
-
-
-@pytest.fixture
-def company_factory() -> callable:
-    def _company_factory(**kwargs) -> Company:
-        company_name = kwargs.pop("name", "Test Company INC")
-        return Company.objects.create(name=company_name, **kwargs)
-
-    return _company_factory

@@ -17,6 +17,20 @@ pytestmark = pytest.mark.django_db
 companies_url = reverse("companies-list")
 
 
+@pytest.fixture()
+def amazon() -> Company:
+    return Company.objects.create(name="Amazon")
+
+
+@pytest.fixture()
+def company_factory() -> callable:
+    def _company_factory(**kwargs) -> Company:
+        company_name = kwargs.pop("name", "Test Company INC")
+        return Company.objects.create(name=company_name, **kwargs)
+
+    return _company_factory
+
+
 def test_zero_companies_should_return_empty_list(client) -> None:
     """
     Test that the API returns an empty list when there are no companies.
