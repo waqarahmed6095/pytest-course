@@ -14,7 +14,7 @@ class PerformanceException(Exception):
         self.runtime_limit = runtime_limit
 
     def __str__(self) -> str:
-        return f"Test took {self.runtime.total_seconds() } seconds to run, which is longer than the limit of {self.runtime_limit.total_seconds() } seconds"
+        return f"Test took {self.runtime.total_seconds() } seconds to run"
 
 
 @pytest.fixture

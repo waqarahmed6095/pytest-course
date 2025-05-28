@@ -1,6 +1,6 @@
 import pytest
 
-from conftest import track_performance
+from fibonacci.conftest import track_performance
 from fibonacci.dynamic import fibonacci_dynamic_v2
 
 
