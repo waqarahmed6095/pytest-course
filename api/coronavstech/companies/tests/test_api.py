@@ -1,6 +1,7 @@
 import json
 import os
 
+from typing import List
 import django
 import pytest
 from django.urls import reverse
@@ -9,6 +10,7 @@ os.environ.setdefault(
     "DJANGO_SETTINGS_MODULE", "api.coronavstech.coronavstech.settings"
 )
 django.setup()
+
 
 from api.coronavstech.companies.models import Company
 
@@ -23,7 +25,15 @@ def amazon() -> Company:
 
 
 @pytest.fixture()
-def company_factory() -> callable:
+def companies(request, company) -> List[Company]:
+    companies = []
+    for company_name in request.param:
+        companies.append(company(name=company_name))
+    return companies
+
+
+@pytest.fixture()
+def company() -> callable:
     def _company_factory(**kwargs) -> Company:
         company_name = kwargs.pop("name", "Test Company INC")
         return Company.objects.create(name=company_name, **kwargs)
@@ -115,11 +125,13 @@ def test_create_company_with_wrong_status_should_fail(client) -> None:
     assert "is not a valid choice" in str(response.content)
 
 
-def test_multiple_companies_exists_should_succeed(client, company_factory) -> None:
-    twitch = company_factory(name="Twitch")
-    tiktok = company_factory(name="Tiktok")
-    test_company = company_factory(name="Test Company INC")
-    companies_names = [twitch.name, tiktok.name, test_company.name]
+@pytest.mark.parametrize(
+    "companies",
+    [["Twitch", "Tiktok", "Test Company INC"], ["Facebook", "Google", "Apple"]],
+    indirect=True,
+)
+def test_multiple_companies_exists_should_succeed(client, companies) -> None:
+    companies_names = set(map(lambda x: x.name, companies))
     reponse_companies = client.get(companies_url).json()
     assert len(companies_names) == len(reponse_companies)
     response_company_names = set(map(lambda x: x["name"], reponse_companies))
