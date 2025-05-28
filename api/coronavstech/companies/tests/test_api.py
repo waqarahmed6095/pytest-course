@@ -26,11 +26,6 @@ def test_zero_companies_should_return_empty_list(client) -> None:
     assert json.loads(response.content) == []
 
 
-@pytest.fixture
-def amazon() -> Company:
-    return Company.objects.create(name="Amazon")
-
-
 def test_one_company_should_return_one_company(client, amazon) -> None:
     """
     Test that the API returns a single company when there is one company.
@@ -106,19 +101,10 @@ def test_create_company_with_wrong_status_should_fail(client) -> None:
     assert "is not a valid choice" in str(response.content)
 
 
-@pytest.fixture
-def company(**kwargs) -> Company:
-    def _company_factory(**kwargs) -> Company:
-        company_name = kwargs.pop("name", "Test Company INC")
-        return Company.objects.create(name=company_name, **kwargs)
-
-    return _company_factory
-
-
-def test_multiple_companies_exists_should_succeed(client, company) -> None:
-    twitch = company(name="Twitch")
-    tiktok = company(name="Tiktok")
-    test_company = company(name="Test Company INC")
+def test_multiple_companies_exists_should_succeed(client, company_factory) -> None:
+    twitch = company_factory(name="Twitch")
+    tiktok = company_factory(name="Tiktok")
+    test_company = company_factory(name="Test Company INC")
     companies_names = [twitch.name, tiktok.name, test_company.name]
     reponse_companies = client.get(companies_url).json()
     assert len(companies_names) == len(reponse_companies)
